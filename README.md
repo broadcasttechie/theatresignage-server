@@ -1,4 +1,8 @@
-theatresignage
+Theatre Signage Server
 ==============
 
-A Symfony project created on January 16, 2016, 8:54 pm.
+A Symfony project for the Theatre Signage server.
+
+CMS and Publisher for Theatre Promo Screens.
+
+Currently support images only.
