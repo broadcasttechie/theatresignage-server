@@ -17,9 +17,7 @@ class DefaultController extends Controller
     {
         // replace this example code with whatever you need
         
-        return new Response(
-            '<html><body>Theatre Signage Controller</body></html>'
-        );
+        return this->render('default/index.html.twig');
         
         
     }
