@@ -73,3 +73,7 @@ fos_user:
     user_class: AppBundle\Entity\User
     group:
         group_class: AppBundle\Entity\Group
+        
+        
+vich_uploader:
+    db_driver: orm
