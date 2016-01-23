@@ -1,20 +1,48 @@
 <?php
+
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Response;
 
-class ChannelController
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Entity\Channel;
+
+/**
+ * Channel controller.
+ *
+ * @Route("/channel")
+ */
+class ChannelController extends Controller
 {
     /**
-     * @Route("/channel")
+     * Lists all Channel entities.
+     *
+     * @Route("/", name="channel_index")
+     * @Method("GET")
      */
-    public function channelAction()
+    public function indexAction()
     {
-        $number = rand(0, 100);
+        $em = $this->getDoctrine()->getManager();
 
-        return new Response(
-            '<html><body>Lucky number: '.$number.'</body></html>'
-        );
+        $channels = $em->getRepository('AppBundle:Channel')->findAll();
+
+        return $this->render('channel/index.html.twig', array(
+            'channels' => $channels,
+        ));
+    }
+
+    /**
+     * Finds and displays a Channel entity.
+     *
+     * @Route("/{id}", name="channel_show")
+     * @Method("GET")
+     */
+    public function showAction(Channel $channel)
+    {
+
+        return $this->render('channel/show.html.twig', array(
+            'channel' => $channel,
+        ));
     }
 }

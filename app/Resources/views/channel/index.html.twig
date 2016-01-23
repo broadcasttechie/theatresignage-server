@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Channel list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for channel in channels %}
+            <tr>
+                <td><a href="{{ path('channel_show', { 'id': channel.id }) }}">{{ channel.id }}</a></td>
+                <td>{{ channel.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('channel_show', { 'id': channel.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}
