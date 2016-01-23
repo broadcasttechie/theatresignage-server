@@ -40,6 +40,8 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "vich/uploader-bundle": "^0.14.0",
         "knplabs/knp-menu-bundle": "^2.0",
+        "twitter/bootstrap": "3.*",
+        "components/jquery": "^2.2",
         "symfony/assetic-bundle": "^2.7"
     },
     "require-dev": {
