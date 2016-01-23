@@ -12,6 +12,21 @@
             "app/AppCache.php"
         ]
     },
+    
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery",
+                "version": "1.11.1",
+                "dist": {
+                    "url": "http://code.jquery.com/jquery-1.11.1.js",
+                    "type": "file"
+                }
+            }
+        }
+    ],
+    
     "require": {
         "php": ">=5.3.9",
         "symfony/symfony": "2.8.*",
@@ -24,7 +39,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "vich/uploader-bundle": "^0.14.0",
-        "knplabs/knp-menu-bundle": "^2.0"
+        "knplabs/knp-menu-bundle": "^2.0",
+        "symfony/assetic-bundle": "^2.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
