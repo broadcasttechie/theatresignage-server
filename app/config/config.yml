@@ -78,6 +78,15 @@ fos_user:
 vich_uploader:
     db_driver: orm
 
+    mappings:
+        asset_image:
+            uri_prefix:         /playerassets
+            upload_destination: %kernel.root_dir%/../web/playerassets
+
+
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
 
 #assetic:
 #    debug:          '%kernel.debug%'
