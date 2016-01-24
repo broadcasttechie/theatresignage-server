@@ -16,6 +16,8 @@ class ChannelType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('inherits')
+            ->add('duration')
             ->add('group')
         ;
     }
