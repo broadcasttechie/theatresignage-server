@@ -8,7 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 
-//use AppBundle\Entity\Playlist;
+use AppBundle\Entity\Channel;
+use AppBundle\Entity\ScheduleItem;
+
 
 /**
  * Playlist controller.
@@ -35,7 +37,7 @@ class PlaylistController extends Controller
      
     
     
-    public $demo =array(
+    private $demo =array(
             'name' => 'demo', 
             'meta' => array(
                 'verion' => 1,
@@ -75,8 +77,6 @@ $response->headers->set('Content-Type', 'application/json');
     
     
     
-    
-     
     /**
      * Demo playlist hash.
      *
@@ -85,20 +85,10 @@ $response->headers->set('Content-Type', 'application/json');
      */
     public function demoHashAction()
     {
-        
         $response = new Response(md5(json_encode($this->demo)));
-$response->headers->set('Content-Type', 'application/json');
-                                 return $response;
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     /**
@@ -107,14 +97,76 @@ $response->headers->set('Content-Type', 'application/json');
      * @Route("/{id}", name="playlist_show")
      * @Method("GET")
      */
-    public function showAction($id)
+    public function showAction(Channel $channel)
     {
-
+      
+        $data = $this->buildPlaylist($channel);
+        $hash = md5(json_encode($data));
+        $output = array('hash' => $hash, 'data' => $data);
         
-        $response = new Response(json_encode(array('name' => $id)));
-$response->headers->set('Content-Type', 'application/json');
+        $response = new Response(
+            json_encode($output));
+        
+        if($this->get('kernel')->isDebug())
+        {
+            dump($output);
+        }
+        else
+        {
+            $response->headers->set('Content-Type', 'application/json');
+        }
+        
         
         return $response;
+    }
+    
+    
+        
+    /**
+     * Playlist hash.
+     *
+     * @Route("/{id}/hash", name="playlist_hash")
+     * @Method("GET")
+     */
+    public function hashAction(Channel $channel)
+    {
+        $response = new Response(md5(json_encode($this->buildPlaylist($channel))));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+    
+    
+    
+    
+    
+    
+    private function buildPlaylist(Channel $channel)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $channelName = $channel->getName();
+        $items = $em->getRepository('AppBundle:ScheduleItem')->findByChannel($channel);
+        $playlist = array();
+        
+        $i = 0;
+        foreach ($items as $item)
+        {
+            $playlist[$i]['name'] = $item->getAsset()->getName();
+            $playlist[$i]['type'] = $item->getAsset()->getType()->getName();
+            $i++;
+        }
+            
+
+        $data = array(
+            'meta' => array(
+                'id' => $channel->getId(),
+                'name' => $channel->getName(),
+            ),
+            'playlist' => $playlist
+                
+        );
+        
+        return $data;
     }
     
    

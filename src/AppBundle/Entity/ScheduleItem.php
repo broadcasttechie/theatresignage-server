@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * SchduleItem
  *
- * @ORM\Table(name="schdule_item")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SchduleItemRepository")
+ * @ORM\Table(name="schedule_item")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ScheduleItemRepository")
  */
-class SchduleItem
+class ScheduleItem
 {
     /**
      * @var int
@@ -22,11 +22,15 @@ class SchduleItem
     private $id;
 
     /**
-     * @var int
      *
-     * @ORM\Column(name="assetId", type="integer")
+     * @ORM\ManyToOne(targetEntity="Channel")
      */
-    private $assetId;
+    protected $channel;
+        /**
+     *
+     * @ORM\ManyToOne(targetEntity="Asset")
+     */
+    protected $asset;
 
     /**
      * @var \DateTime
@@ -150,5 +154,74 @@ class SchduleItem
     public function getDuration()
     {
         return $this->duration;
+    }
+
+    /**
+     * Set channelId
+     *
+     * @param \AppBundle\Entity\Channel $channelId
+     * @return SchduleItem
+     */
+    public function setChannelId(\AppBundle\Entity\Channel $channelId = null)
+    {
+        $this->channelId = $channelId;
+
+        return $this;
+    }
+
+    /**
+     * Get channelId
+     *
+     * @return \AppBundle\Entity\Channel 
+     */
+    public function getChannelId()
+    {
+        return $this->channelId;
+    }
+
+    /**
+     * Set channel
+     *
+     * @param \AppBundle\Entity\Channel $channel
+     * @return SchduleItem
+     */
+    public function setChannel(\AppBundle\Entity\Channel $channel = null)
+    {
+        $this->channel = $channel;
+
+        return $this;
+    }
+
+    /**
+     * Get channel
+     *
+     * @return \AppBundle\Entity\Channel 
+     */
+    public function getChannel()
+    {
+        return $this->channel;
+    }
+
+    /**
+     * Set asset
+     *
+     * @param \AppBundle\Entity\Asset $asset
+     * @return SchduleItem
+     */
+    public function setAsset(\AppBundle\Entity\Asset $asset = null)
+    {
+        $this->asset = $asset;
+
+        return $this;
+    }
+
+    /**
+     * Get asset
+     *
+     * @return \AppBundle\Entity\Asset 
+     */
+    public function getAsset()
+    {
+        return $this->asset;
     }
 }
