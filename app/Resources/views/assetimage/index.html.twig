@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AssetImage list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Updatedat</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for assetImage in assetImages %}
+            <tr>
+                <td><a href="{{ path('assetimage_show', { 'id': assetImage.id }) }}">{{ assetImage.updatedAt|date('Y-m-d H:i') }}</a></td>
+                <td>{{ assetImage.id }}</td>
+                <td>file: {{ assetImage.imageName }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('assetimage_show', { 'id': assetImage.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('assetimage_edit', { 'id': assetImage.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('assetimage_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

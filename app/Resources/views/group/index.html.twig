@@ -1,26 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>User list</h1>
+    <h1>Group list</h1>
 
     <table>
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Name</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for user in users %}
+        {% for group in groups %}
             <tr>
-                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                <td><a href="{{ path('group_show', { 'id': group.id }) }}">{{ group.id }}</a></td>
+                <td><a href="{{ path('group_show', { 'id': group.id }) }}">{{ group.name }}</a></td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('user_show', { 'id': user.id }) }}">show</a>
+                            <a href="{{ path('group_show', { 'id': group.id }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>
+                            <a href="{{ path('group_edit', { 'id': group.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -31,7 +33,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('user_new') }}">Create a new entry</a>
+            <a href="{{ path('group_new') }}">Create a new entry</a>
         </li>
     </ul>
 {% endblock %}

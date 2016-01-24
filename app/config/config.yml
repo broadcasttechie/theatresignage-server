@@ -73,6 +73,8 @@ fos_user:
     user_class: AppBundle\Entity\User
     group:
         group_class: AppBundle\Entity\Group
+        form:
+            type: AppBundle\Form\GroupType
 
 
 liip_imagine:

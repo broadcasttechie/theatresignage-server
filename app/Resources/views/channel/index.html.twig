@@ -6,20 +6,32 @@
     <table>
         <thead>
             <tr>
-                <th>Id</th>
+                {% if is_granted('ROLE_SUPER_ADMIN') %} 
+                <th>Theatre</th>
+                {% endif %}
                 <th>Name</th>
+                <th>Id</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for channel in channels %}
             <tr>
-                <td><a href="{{ path('channel_show', { 'id': channel.id }) }}">{{ channel.id }}</a></td>
-                <td>{{ channel.name }}</td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %} 
+                <td>{{ channel.group.name | default("not set") }}</td>
+                {% endif %}
+                <td><a href="{{ path('channel_show', { 'id': channel.id }) }}">{{ channel.name }}</a></td>
+                <td>{{ channel.id }}</td>
                 <td>
                     <ul>
                         <li>
                             <a href="{{ path('channel_show', { 'id': channel.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('channel_edit', { 'id': channel.id }) }}">edit</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('channel_schedule', { 'id': channel.id }) }}">schedule</a>
                         </li>
                     </ul>
                 </td>
@@ -28,5 +40,9 @@
         </tbody>
     </table>
 
-    
+    <ul>
+        <li>
+            <a href="{{ path('channel_new') }}">Create a new entry</a>
+        </li>
+    </ul>
 {% endblock %}

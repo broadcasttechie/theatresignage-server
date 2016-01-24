@@ -1,22 +1,21 @@
 <?php
 
 namespace AppBundle\Entity;
-use Doctrine\Common\Collections\Criteria;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Channel
+ * AssetType
  *
- * @ORM\Table(name="channel")
+ * @ORM\Table(name="asset_type")
  * @ORM\Entity
  */
-class Channel
+class AssetType
 {
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
 
@@ -29,18 +28,17 @@ class Channel
      */
     private $id;
 
-   
-     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Group")
-     */
-    protected $group;
     
+    public function __toString() {
+    return $this->name;
+}
+
 
     /**
      * Set name
      *
      * @param string $name
-     * @return Channel
+     * @return AssetType
      */
     public function setName($name)
     {
@@ -67,29 +65,5 @@ class Channel
     public function getId()
     {
         return $this->id;
-    }
-
-
-    /**
-     * Set group
-     *
-     * @param \AppBundle\Entity\Group $group
-     * @return Channel
-     */
-    public function setGroup(\AppBundle\Entity\Group $group = null)
-    {
-        $this->group = $group;
-
-        return $this;
-    }
-
-    /**
-     * Get group
-     *
-     * @return \AppBundle\Entity\Group 
-     */
-    public function getGroup()
-    {
-        return $this->group;
     }
 }
