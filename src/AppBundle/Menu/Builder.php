@@ -23,7 +23,7 @@ class Builder implements ContainerAwareInterface
         
             $user = $this->container->get('security.context')->getToken()->getUser();
             
-        $menu->addChild('Manage Channel', array('uri' => '#'));
+        $menu->addChild('Manage Channel', array('route' => 'channel_index'));
         $menu->addChild('Manage Assets', array('uri' => '#'));
             if ($user->hasRole('ROLE_ADMIN'))
             {
@@ -82,7 +82,7 @@ class Builder implements ContainerAwareInterface
              ->setAttribute('divider_prepend', true);
             
 		$menu['User']->addChild("Hello $username");
-		$menu['User']->addChild('Edit profile', array('uri' => '#'))
+		$menu['User']->addChild('Edit profile', array('route' => 'fos_user_profile_edit'))
 			->setAttribute('icon', 'glyphicon glyphicon-user');
             $menu['User']->addChild('Logout', array('route' => 'fos_user_security_logout'));
             
