@@ -1,15 +1,50 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
+    <head>    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% stylesheets '@bootstrap_css' %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+    {% endstylesheets %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
 
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    <nav class="navbar  navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Theatre Signage</a>
+            </div>
+
+            <div class="nav navbar-nav navbar-left collapse navbar-collapse">
+                
+                {{ knp_menu_render('AppBundle:Builder:mainMenu', {'currentClass': 'active'}) }}
+
+            </div>
+            <div>
+            
+                {{ knp_menu_render('AppBundle:Builder:userMenu', {'template': 'AppBundle:Menu:my_menu.html.twig'}) }}
+            </div>
+            
+        </div>
+    </nav>
+
+    <div class="container">
+       {% block body %}{% endblock %}
+    </div>
+
+  {% javascripts '@jquery' '@bootstrap_js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
     </body>
 </html>
+
