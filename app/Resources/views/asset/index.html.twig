@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Asset list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Updatedat</th>
+                <th>Name</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for asset in assets %}
+            <tr>
+                <td><a href="{{ path('asset_show', { 'id': asset.id }) }}">{{ asset.updatedAt|date('Y-m-d H:i') }}</a></td>
+                <td>{{ asset.name }}</td>
+                <td>{{ asset.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('asset_show', { 'id': asset.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('asset_edit', { 'id': asset.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('asset_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
