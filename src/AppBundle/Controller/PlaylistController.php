@@ -148,11 +148,15 @@ $response->headers->set('Content-Type', 'application/json');
         $items = $em->getRepository('AppBundle:ScheduleItem')->findByChannel($channel);
         $playlist = array();
         
+
+//need to think about the ordering and include items from inherited channel.
         $i = 0;
         foreach ($items as $item)
         {
             $playlist[$i]['name'] = $item->getAsset()->getName();
             $playlist[$i]['type'] = $item->getAsset()->getType()->getName();
+$playlist[$i]['start'] = $item->getStart();
+$playlist[$i]['stop'] = $item->getStop();
             $i++;
         }
             
