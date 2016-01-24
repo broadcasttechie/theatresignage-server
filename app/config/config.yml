@@ -73,11 +73,29 @@ fos_user:
     user_class: AppBundle\Entity\User
     group:
         group_class: AppBundle\Entity\Group
-        
-        
+
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        1080_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [160,90], mode: outbound }
+        1080:
+            quality: 90
+            filters:
+                thumbnail: { size: [1920,1080], mode: outbound }
+                
+                
+
 vich_uploader:
     db_driver: orm
-
+    storage: file_system
     mappings:
         asset_image:
             uri_prefix:         /playerassets
