@@ -8,3 +8,6 @@ fos_user:
 fos_user_group:
     resource: "@FOSUserBundle/Resources/config/routing/group.xml"
     prefix: /group
+    
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
