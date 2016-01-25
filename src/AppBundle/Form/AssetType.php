@@ -15,9 +15,11 @@ class AssetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('updatedAt', 'datetime')
-            ->add('name')
-            ->add('type')
+    
+            //->add('name')
+            ->add('mimeType')
+            ->add('ownerGroup')
+            ->add('imageFile', 'vich_file')
         ;
     }
     

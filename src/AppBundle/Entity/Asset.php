@@ -3,12 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Asset
  *
- * @ORM\Table(name="asset", indexes={@ORM\Index(name="IDX_2AF5A5CC54C8C93", columns={"type_id"})})
+ * @ORM\Table(name="asset")
  * @ORM\Entity
+ * @Vich\Uploadable
  */
 class Asset
 {
@@ -19,12 +22,6 @@ class Asset
      */
     private $updatedAt;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
-     */
-    private $name;
 
     /**
      * @var integer
@@ -36,21 +33,87 @@ class Asset
     private $id;
 
     /**
-     * @var \AppBundle\Entity\AssetType
+      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\AssetType")
+     * @ORM\Column(name="mime_type", type="string", length=50, nullable=false)
+     */
+    private $mimeType;
+    
+    
+   
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="asset_image", fileNameProperty="imageName", nullable=true)
+     * 
+     * @Vich\Uploadable
+     * @var File
+     */
+    private $imageFile;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    private $imageName;
+    
+     /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageFile
+     *
+     * @return AssetImage
+     */
+    public function setImageFile(File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+        if ($imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+        return $this;
+    }
+    
+    
+    
+    /**
+     * @return UploadedFile
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+    
+    
+    /**
+     * @var \AppBundle\Entity\Group
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Group")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="owner_group", referencedColumnName="id")
      * })
      */
-    private $type;
+    private $ownerGroup;
 
-
+    
+    
     public function __toString() {
-    return $this->name;
-}
+        return $this->name;
+    }
     
 
+    
+    
+    
+
+    
+    
+    
     /**
      * Set updatedAt
      *
@@ -74,28 +137,9 @@ class Asset
         return $this->updatedAt;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Asset
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
 
-        return $this;
-    }
 
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+  
 
     /**
      * Get id
@@ -107,26 +151,77 @@ class Asset
         return $this->id;
     }
 
+
     /**
-     * Set type
+     * Set ownerGroup
      *
-     * @param \AppBundle\Entity\AssetType $type
+     * @param \AppBundle\Entity\Group $ownerGroup
      * @return Asset
      */
-    public function setType(\AppBundle\Entity\AssetType $type = null)
+    public function setOwnerGroup(\AppBundle\Entity\Group $ownerGroup = null)
     {
-        $this->type = $type;
+        $this->ownerGroup = $ownerGroup;
 
         return $this;
     }
 
     /**
-     * Get type
+     * Get ownerGroup
      *
-     * @return \AppBundle\Entity\AssetType 
+     * @return \AppBundle\Entity\Group 
      */
-    public function getType()
+    public function getOwnerGroup()
     {
-        return $this->type;
+        return $this->ownerGroup;
+    }
+
+    
+
+
+    /**
+     * Set mimeType
+     *
+     * @param string $mimeType
+     * @return Asset
+     */
+    public function setMimeType($mimeType)
+    {
+        $this->mimeType = $mimeType;
+
+        return $this;
+    }
+
+    /**
+     * Get mimeType
+     *
+     * @return string 
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
+    }
+
+
+    /**
+     * Set imageName
+     *
+     * @param string $imageName
+     * @return Asset
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * Get imageName
+     *
+     * @return string 
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
     }
 }

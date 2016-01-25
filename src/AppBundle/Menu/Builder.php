@@ -24,7 +24,7 @@ class Builder implements ContainerAwareInterface
             $user = $this->container->get('security.context')->getToken()->getUser();
             
         $menu->addChild('Manage Channel', array('route' => 'channel_index'));
-        $menu->addChild('Manage Assets', array('uri' => '#'));
+        $menu->addChild('Manage Assets', array('route' => 'asset_index'));
             if ($user->hasRole('ROLE_ADMIN'))
             {
                 $menu->addChild('Manage Group', array('uri' => '#'));
