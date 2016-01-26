@@ -43,35 +43,32 @@ class Asset
    
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
-     * @Vich\UploadableField(mapping="asset_image", fileNameProperty="imageName", nullable=true)
+     * //mapping is to config
+     * @Vich\UploadableField(mapping="asset_file", fileNameProperty="uri", nullable=true)
      * 
      * @Vich\Uploadable
      * @var File
      */
-    private $imageFile;
+    private $uriFile;
+    
+    
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @var string
      */
-    private $imageName;
+    private $uri;
     
      /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
      *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageFile
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $uriFile
      *
      * @return AssetImage
      */
-    public function setImageFile(File $imageFile = null)
+    public function setUriFile(File $uriFile = null)
     {
-        $this->imageFile = $imageFile;
-        if ($imageFile) {
+        $this->uriFile = $uriFile;
+        if ($uriFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
             $this->updatedAt = new \DateTime('now');
@@ -84,9 +81,9 @@ class Asset
     /**
      * @return UploadedFile
      */
-    public function getImageFile()
+    public function getUriFile()
     {
-        return $this->imageFile;
+        return $this->uriFile;
     }
     
     
@@ -203,25 +200,25 @@ class Asset
 
 
     /**
-     * Set imageName
+     * Set uri
      *
-     * @param string $imageName
+     * @param string $uri
      * @return Asset
      */
-    public function setImageName($imageName)
+    public function setUri($uri)
     {
-        $this->imageName = $imageName;
+        $this->uri = $uri;
 
         return $this;
     }
 
     /**
-     * Get imageName
+     * Get uri
      *
      * @return string 
      */
-    public function getImageName()
+    public function getUri()
     {
-        return $this->imageName;
+        return $this->uri;
     }
 }
