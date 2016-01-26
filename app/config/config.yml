@@ -99,7 +99,7 @@ vich_uploader:
     db_driver: orm
     storage: file_system
     mappings:
-        asset_image:
+        asset_file:
             uri_prefix:         /playerassets
             upload_destination: %kernel.root_dir%/../web/playerassets
 

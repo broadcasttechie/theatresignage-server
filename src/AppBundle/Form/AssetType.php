@@ -19,7 +19,7 @@ class AssetType extends AbstractType
             //->add('name')
             ->add('mimeType')
             ->add('ownerGroup')
-            ->add('imageFile', 'vich_file')
+            ->add('uriFile', 'vich_file')
         ;
     }
     

@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 
-use AppBundle\Entity\AssetImage;
+use AppBundle\Entity\Asset;
 
 /**
  * Playlist controller.
@@ -40,12 +40,12 @@ class ImageController extends Controller
      * @Route("/{id}", name="image_show")
      * @Method("GET")
      */
-    public function showAction(AssetImage $assetImage)
+    public function showAction(Asset $asset)
     {
         
 
         $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
-$path = $helper->asset($assetImage, 'imageFile');
+$path = $helper->asset($asset, 'uriFile');
         
         $opts = array();
         return new Response( $this->get('liip_imagine.cache.manager')->getBrowserPath($path, '1080') );
