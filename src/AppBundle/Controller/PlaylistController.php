@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use AppBundle\Entity\Channel;
 use AppBundle\Entity\ScheduleItem;
-
+use AppBundle\MimeType;
 
 /**
  * Playlist controller.
@@ -88,6 +88,21 @@ $response->headers->set('Content-Type', 'application/json');
         $response = new Response(md5(json_encode($this->demo)));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
+    }  
+    
+    /**
+     * Demo playlist hash.
+     *
+     * @Route("/demo/type", name="playlist_demo_type")
+     * @Method("GET")
+     */
+    public function demoTypeAction()
+    {
+        $type = new MimeType();
+        
+        $response = new Response(dump($type));
+        //$response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
     
     
@@ -153,10 +168,18 @@ $response->headers->set('Content-Type', 'application/json');
         $i = 0;
         foreach ($items as $item)
         {
-            $playlist[$i]['name'] = $item->getAsset()->getName();
-            $playlist[$i]['type'] = $item->getAsset()->getType()->getName();
-$playlist[$i]['start'] = $item->getStart();
-$playlist[$i]['stop'] = $item->getStop();
+            $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+$path = $helper->asset($item->getAsset(), 'uriFile');
+        
+        $url = $this->get('liip_imagine.cache.manager')->getBrowserPath($path, '1080') ;
+            $webPath = $this->get('kernel')->getRootDir() . '/../web' . $this->getRequest()->getBasePath();
+            
+            $playlist[$i]['uri'] = $item->getAsset()->getUri();
+            $playlist[$i]['type'] = $item->getAsset()->getMimeType();
+            $playlist[$i]['url'] = $url;
+            $playlist[$i]['start'] = $item->getStart();
+            $playlist[$i]['stop'] = $item->getStop();
+            //$playlist[$i]['hash'] = md5_file("$webPath$path");
             $i++;
         }
             
