@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Asset list</h1>
-    <table>
+    <h1>Asset Manager</h1>
+<p>Quick Upload box here...</p>
+<a href="{{ path('asset_new') }}">Upload new asset</a>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+    <table class="table table-hover table-border">
         <thead>
             <tr>
-                <th>Updatedat</th>
                 <th>Name</th>
                 <th>Thumb</th>
                 <th>Actions</th>
@@ -14,8 +17,8 @@
         <tbody>
         {% for asset in assets %}
             <tr>
-                <td><a href="{{ path('asset_show', { 'id': asset.id }) }}">{{ asset.updatedAt|date('Y-m-d H:i') }}</a></td>
-                <td>{{ asset.name }}</td>
+                <td><a href="{{ path('asset_show', { 'id': asset.id }) }}">
+                    {{ asset.name }}</a></td>
                 <td><img src="{{ vich_uploader_asset(asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ asset.uri }}" /></td>
                 <td>
                     <ul>
@@ -31,10 +34,7 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
+</div>
 
-    <ul>
-        <li>
-            <a href="{{ path('asset_new') }}">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}
