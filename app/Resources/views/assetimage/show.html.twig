@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AssetImage</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Updatedat</th>
+                <td>{% if assetImage.updatedAt %}{{ assetImage.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ assetImage.id }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td> <img src="{{ vich_uploader_asset(assetImage, 'imageFile') | imagine_filter('1080_thumb')  }}" alt="{{ assetImage.imageName }}" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('assetimage_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('assetimage_edit', { 'id': assetImage.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

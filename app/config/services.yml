@@ -14,3 +14,8 @@ services:
             - @service_container
         tags:
             - { name: knp_menu.voter }
+
+    app.form.group:
+        class: AppBundle\Form\GroupType
+        tags:
+            - { name: form.type, alias: app_user_group }

@@ -21,11 +21,10 @@ class Builder implements ContainerAwareInterface
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED'))
         {
         
-            $user = $this->container->get('security.context')->getToken()->getUser();
             
         $menu->addChild('Manage Channel', array('route' => 'channel_index'));
-        $menu->addChild('Manage Assets', array('uri' => '#'));
-            if ($user->hasRole('ROLE_ADMIN'))
+        $menu->addChild('Manage Assets', array('route' => 'asset_index'));
+            if ($securityContext->isGranted('ROLE_ADMIN'))
             {
                 $menu->addChild('Manage Group', array('uri' => '#'));
             }
