@@ -19,7 +19,7 @@ class AssetController extends Controller
     /**
      * Lists all Asset entities.
      *
-     * @Route("/", name="asset_index")
+     * @Route("s", name="asset_index")
      * @Method("GET")
      */
     public function indexAction()
