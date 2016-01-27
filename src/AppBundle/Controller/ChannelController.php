@@ -19,7 +19,7 @@ class ChannelController extends Controller
     /**
      * Lists all Channel entities.
      *
-     * @Route("/", name="channel_index")
+     * @Route("s", name="channel_index")
      * @Method("GET")
      */
     public function indexAction()
