@@ -50,7 +50,13 @@ class Asset
      * @var File
      */
     private $uriFile;
-    
+        
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    private $name;
     
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -208,7 +214,7 @@ class Asset
     public function setUri($uri)
     {
         $this->uri = $uri;
-
+        $this->name = pathinfo($uri, PATHINFO_FILENAME);
         return $this;
     }
 
@@ -220,5 +226,28 @@ class Asset
     public function getUri()
     {
         return $this->uri;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Asset
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

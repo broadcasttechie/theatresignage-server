@@ -15,7 +15,7 @@
         {% for asset in assets %}
             <tr>
                 <td><a href="{{ path('asset_show', { 'id': asset.id }) }}">{{ asset.updatedAt|date('Y-m-d H:i') }}</a></td>
-                <td>{{ asset.uri }}</td>
+                <td>{{ asset.name }}</td>
                 <td><img src="{{ vich_uploader_asset(asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ asset.uri }}" /></td>
                 <td>
                     <ul>
