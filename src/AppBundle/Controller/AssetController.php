@@ -85,6 +85,8 @@ class AssetController extends Controller
     {
         $deleteForm = $this->createDeleteForm($asset);
         $editForm = $this->createForm('AppBundle\Form\AssetType', $asset);
+        $editForm->remove('uriFile');
+        $editForm->add('name');
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
