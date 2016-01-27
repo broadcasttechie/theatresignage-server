@@ -22,15 +22,30 @@ class AssetController extends Controller
      * @Route("s", name="asset_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        
+        $em    = $this->get('doctrine.orm.entity_manager');
+        $dql   = "SELECT a FROM AppBundle:Asset a";
+        $query = $em->createQuery($dql);
 
-        $assets = $em->getRepository('AppBundle:Asset')->findAll();
+         $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            10/*limit per page*/
+        );
+        
+        return $this->render('asset/index.html.twig', array('pagination' => $pagination));
 
-        return $this->render('asset/index.html.twig', array(
-            'assets' => $assets,
-        ));
+        
+       // $em = $this->getDoctrine()->getManager();
+
+       // $assets = $em->getRepository('AppBundle:Asset')->findAll();
+
+       // return $this->render('asset/index.html.twig', array(
+       //     'assets' => $assets,
+        //));
     }
 
     /**

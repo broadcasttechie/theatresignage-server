@@ -4,6 +4,11 @@
     <h1>Asset Manager</h1>
 <p>Quick Upload box here...</p>
 <a href="{{ path('asset_new') }}">Upload new asset</a>
+
+
+<div class="count">
+    {{ pagination.getTotalItemCount }}
+</div>
 <div class="row">
     <div class="col-sm-12 col-md-12">
     <table class="table table-hover table-border">
@@ -15,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for asset in assets %}
+        {% for asset in pagination %}
             <tr>
                 <td><a href="{{ path('asset_show', { 'id': asset.id }) }}">
                     {{ asset.name }}</a></td>
@@ -34,6 +39,9 @@
         {% endfor %}
         </tbody>
     </table>
+        <div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>
     </div>
 </div>
 
