@@ -1,12 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Channel list</h1>
-
-    <table>
+<h1>Channels</h1>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <p>
+            Manage your channels here. 
+        </p>
+        <p>
+            Channels can inherit content from other channels, for example a screen in the bar could inherit from a master playlist to add in bar promotions.
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+    <table class="table table-hover table-border">
         <thead>
             <tr>
-                <th>Id</th>
+                {% if is_granted('ROLE_SUPER_ADMIN') %} 
+                <th>Theatre</th>
+                {% endif %}
                 <th>Name</th>
                 <th>Actions</th>
             </tr>
@@ -14,19 +27,30 @@
         <tbody>
         {% for channel in channels %}
             <tr>
-                <td><a href="{{ path('channel_show', { 'id': channel.id }) }}">{{ channel.id }}</a></td>
-                <td>{{ channel.name }}</td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %} 
+                <td>{{ channel.group.name | default("not set") }}</td>
+                {% endif %}
+                <td><a href="{{ path('channel_show', { 'id': channel.id }) }}">{{ channel.name }}</a></td>
+                {% if is_granted('ROLE_ADMIN') %} 
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('channel_show', { 'id': channel.id }) }}">show</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('channel_edit', { 'id': channel.id }) }}">edit</a>
+                </td>
+                {% endif %}
+                <td>
+                    <a href="{{ path('channel_schedule', { 'id': channel.id }) }}">edit schedule</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    
+    </div>
+</div>
+        
+{% if is_granted('ROLE_ADMIN') %} 
+    <ul>
+        <li>
+            <a href="{{ path('channel_new') }}">Create a new channel</a>
+        </li>
+    </ul>
+{% endif %}
 {% endblock %}

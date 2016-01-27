@@ -17,6 +17,7 @@ class DefaultController extends Controller
     {
         // replace this example code with whatever you need
         
+// if logged in page should have dashboard of channels an player status
         return $this->render('default/index.html.twig');
         
         
