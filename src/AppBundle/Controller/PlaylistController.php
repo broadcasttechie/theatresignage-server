@@ -122,7 +122,8 @@ $response->headers->set('Content-Type', 'application/json');
         $response = new Response(
             json_encode($output));
         
-        if($this->get('kernel')->isDebug())
+        if(false)
+        //if($this->get('kernel')->isDebug())
         {
             dump($output);
         }
