@@ -40,4 +40,4 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/channel/, role: ROLE_USER }
-        - { path: ^/media/, role: ROLE_USER }
+        #- { path: ^/media/, role: ROLE_USER }
