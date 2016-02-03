@@ -166,6 +166,15 @@ $response->headers->set('Content-Type', 'application/json');
         
 
 //need to think about the ordering and include items from inherited channel.
+        
+        if ($channel->getInherits())
+        {
+            $masterItems = $em->getRepository('AppBundle:ScheduleItem')->findByChannel($channel->getInherits());
+            $items = array_merge($items, $masterItems);
+            
+        }
+        
+        
         $i = 0;
         foreach ($items as $item)
         {
@@ -178,8 +187,9 @@ $path = $helper->asset($item->getAsset(), 'uriFile');
             $playlist[$i]['uri'] = $item->getAsset()->getUri();
             $playlist[$i]['type'] = $item->getAsset()->getMimeType();
             $playlist[$i]['url'] = $url;
-            $playlist[$i]['start'] = $item->getStart();
-            $playlist[$i]['stop'] = $item->getStop();
+            $playlist[$i]['start'] = $item->getStart()->format('c');
+            $playlist[$i]['stop'] = $item->getStop()->format('c');
+            $playlist[$i]['duration'] = ($item->getDuration() ? $item->getDuration() : $channel->getDuration());
             //$playlist[$i]['hash'] = md5_file("$webPath$path");
             $i++;
         }
