@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Channel Scheduler
+{% endblock %}
+{% block body %}
+
+<div class="row"><h1>Schedule for {{ channel.name }}</h1>
+</div>
+<div class="row">
+<div class="panel panel-primary">
+<div class="panel-heading">Channel inheritance.</div>
+    <div class="panel-body">
+        {% if channel.inherits %}
+        <p>
+            <a href="{{ path('channel_schedule', { 'id' : channel.inherits.id }) }}">Click here to edit the schedule for {{ channel.inherits.name }}</a>
+        </p>
+        {% elseif channel.children %}
+        <p>The following channels inherit this schedule</p>
+        <ul>
+        {% for row in channel.children %}
+        <li><a href="{{ path('channel_schedule', {'id' : row.id }) }}">
+                {{ row.name }}
+            </a></li>
+        {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
+</div>
+<div class="row">
+    <div class="col col-md-12">
+<table class="table table-hover table-condensed">
+    <thead>
+        <th>Order</th>
+        <th>Asset</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Duration</th>
+        <th>Thumbnail</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        {% for row in channel.scheduleItem %}
+        <tr>
+            <td>0</td>
+            <td>{{ row.asset.name | default(row.asset.uri) }}</td>
+            <td>{{ row.start | date() }}</td>
+            <td>{{ row.stop | date() }}</td>
+            <td>{{ row.duration | default(channel.duration)}}</td>
+            <td><img src="{{ vich_uploader_asset(row.asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ row.asset.uri }}" /></td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div></div>
+
+    <ul>
+        <li>
+            <a href="{{ path('channel_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

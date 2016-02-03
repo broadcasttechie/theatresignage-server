@@ -139,7 +139,7 @@ class ChannelController extends Controller
             return $this->redirectToRoute('channel_edit', array('id' => $channel->getId()));
         }
 
-        return $this->render('channel/edit.html.twig', array(
+        return $this->render('channel/schedule.html.twig', array(
             'channel' => $channel,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
