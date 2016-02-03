@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ScheduleItem list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Start</th>
+                <th>Stop</th>
+                <th>Duration</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for scheduleItem in scheduleItems %}
+            <tr>
+                <td><a href="{{ path('scheduleitem_show', { 'id': scheduleItem.id }) }}">{{ scheduleItem.id }}</a></td>
+                <td>{% if scheduleItem.start %}{{ scheduleItem.start|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if scheduleItem.stop %}{{ scheduleItem.stop|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ scheduleItem.duration }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('scheduleitem_show', { 'id': scheduleItem.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('scheduleitem_edit', { 'id': scheduleItem.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('scheduleitem_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
