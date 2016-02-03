@@ -119,20 +119,28 @@ $response->headers->set('Content-Type', 'application/json');
         $hash = md5(json_encode($data));
         $output = array('hash' => $hash, 'data' => $data);
         
+        $response = new Response(json_encode($output));
+        
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+    /**
+     * Finds and displays a Channel entity in debug mode.
+     *
+     * @Route("/{id}/debug", name="playlist_debug")
+     * @Method("GET")
+     */
+    public function debugAction(Channel $channel)
+    {
+      
+        $data = $this->buildPlaylist($channel);
+        $hash = md5(json_encode($data));
+        $output = array('hash' => $hash, 'data' => $data);
+        
         $response = new Response(
             json_encode($output));
         
-        if(false)
-        //if($this->get('kernel')->isDebug())
-        {
-            dump($output);
-        }
-        else
-        {
-            $response->headers->set('Content-Type', 'application/json');
-        }
-        
-        
+        dump($output);
         return $response;
     }
     
