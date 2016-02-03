@@ -16,6 +16,7 @@
             <tr>
                 <th>Name</th>
                 <th>Thumb</th>
+                <th>Used in channels:</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -25,6 +26,13 @@
                 <td><a href="{{ path('asset_show', { 'id': asset.id }) }}">
                     {{ asset.name }}</a></td>
                 <td><img src="{{ vich_uploader_asset(asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ asset.uri }}" /></td>
+                <td>{% for schedule in asset.scheduleItem %}
+                    <ul>
+                    <li>{{ schedule.channel.name }}</li>
+                    
+                    </ul>
+                {% endfor %}
+                </td>
                 <td>
                     <ul>
                         <li>

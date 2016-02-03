@@ -39,12 +39,20 @@ class Channel
     
     /**
      *
-     * @ORM\OneToOne(targetEntity="Channel")
+     * @ORM\ManyToOne(targetEntity="Channel")
      * @ORM\JoinColumn(name="inherits", referencedColumnName="id")
      */
     protected $inherits;
+    
+     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Channel", mappedBy="inherits")
+     */
+    protected $children;
 
-
+     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ScheduleItem", mappedBy="channel")
+     */
+    protected $scheduleItem;
     
      /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Group")
@@ -167,4 +175,77 @@ class Channel
         return $this->name;
     }
     
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->scheduleItem = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add scheduleItem
+     *
+     * @param \AppBundle\Entity\ScheduleItem $scheduleItem
+     * @return Channel
+     */
+    public function addScheduleItem(\AppBundle\Entity\ScheduleItem $scheduleItem)
+    {
+        $this->scheduleItem[] = $scheduleItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove scheduleItem
+     *
+     * @param \AppBundle\Entity\ScheduleItem $scheduleItem
+     */
+    public function removeScheduleItem(\AppBundle\Entity\ScheduleItem $scheduleItem)
+    {
+        $this->scheduleItem->removeElement($scheduleItem);
+    }
+
+    /**
+     * Get scheduleItem
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getScheduleItem()
+    {
+        return $this->scheduleItem;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \AppBundle\Entity\Channel $children
+     * @return Channel
+     */
+    public function addChild(\AppBundle\Entity\Channel $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \AppBundle\Entity\Channel $children
+     */
+    public function removeChild(\AppBundle\Entity\Channel $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
 }
