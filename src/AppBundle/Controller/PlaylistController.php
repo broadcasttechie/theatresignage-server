@@ -119,20 +119,28 @@ $response->headers->set('Content-Type', 'application/json');
         $hash = md5(json_encode($data));
         $output = array('hash' => $hash, 'data' => $data);
         
+        $response = new Response(json_encode($output));
+        
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+    /**
+     * Finds and displays a Channel entity in debug mode.
+     *
+     * @Route("/{id}/debug", name="playlist_debug")
+     * @Method("GET")
+     */
+    public function debugAction(Channel $channel)
+    {
+      
+        $data = $this->buildPlaylist($channel);
+        $hash = md5(json_encode($data));
+        $output = array('hash' => $hash, 'data' => $data);
+        
         $response = new Response(
             json_encode($output));
         
-        if(false)
-        //if($this->get('kernel')->isDebug())
-        {
-            dump($output);
-        }
-        else
-        {
-            $response->headers->set('Content-Type', 'application/json');
-        }
-        
-        
+        dump($output);
         return $response;
     }
     
@@ -161,11 +169,28 @@ $response->headers->set('Content-Type', 'application/json');
         $em = $this->getDoctrine()->getManager();
 
         $channelName = $channel->getName();
-        $items = $em->getRepository('AppBundle:ScheduleItem')->findByChannel($channel);
+        $items = $em->getRepository('AppBundle:ScheduleItem')->findBy(
+            array('channel' => $channel),
+            array('sequence' => 'ASC'));
+            
+            //->findByChannel($channel);
         $playlist = array();
         
 
 //need to think about the ordering and include items from inherited channel.
+        
+        if ($channel->getInherits())
+        {
+            $masterItems = $em->getRepository('AppBundle:ScheduleItem')->findBy(
+            array('channel' => $channel->getInherits()),
+            array('sequence' => 'ASC'));
+            //->findByChannel($channel->getInherits());
+            
+            //$items = array_merge($items, $masterItems);
+            $items = $this->array_mix($masterItems, $items);
+        }
+        
+        
         $i = 0;
         foreach ($items as $item)
         {
@@ -178,8 +203,9 @@ $path = $helper->asset($item->getAsset(), 'uriFile');
             $playlist[$i]['uri'] = $item->getAsset()->getUri();
             $playlist[$i]['type'] = $item->getAsset()->getMimeType();
             $playlist[$i]['url'] = $url;
-            $playlist[$i]['start'] = $item->getStart();
-            $playlist[$i]['stop'] = $item->getStop();
+            $playlist[$i]['start'] = $item->getStart()->format('c');
+            $playlist[$i]['stop'] = $item->getStop()->format('c');
+            $playlist[$i]['duration'] = ($item->getDuration() ? $item->getDuration() : $channel->getDuration());
             //$playlist[$i]['hash'] = md5_file("$webPath$path");
             $i++;
         }
@@ -196,7 +222,30 @@ $path = $helper->asset($item->getAsset(), 'uriFile');
         
         return $data;
     }
-    
+   function array_mix($arr1, $arr2)
+{
+	if (count($arr2)>count($arr1))
+		{
+			$temp = $arr1;
+			$arr1 = $arr2;
+			$arr2 = $temp;
+			unset($temp);
+		}
+	$output = array();
+	$l1 = count($arr1);
+	$l2 = count($arr2);
+	$lt = $l1 + $l2;
+	$n = floor($l1 / $l2) ;
+	for ($i = 0; $i < $l1; $i++)
+	{
+		$output[] = $arr1[$i];
+		if ($i % $n == floor($n/2) )
+		{
+			$output[] = array_shift($arr2);
+		}
+	}
+	return $output;
+}
    
 }
 

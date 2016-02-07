@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * Asset
@@ -52,7 +53,7 @@ class Asset
     private $uriFile;
         
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      *
      * @var string
      */
@@ -64,6 +65,19 @@ class Asset
      * @var string
      */
     private $uri;
+    
+    
+    
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ScheduleItem", mappedBy="asset")
+     */
+    protected $scheduleItem;
+    
+    
+    
+    
     
      /**
      *
@@ -249,5 +263,62 @@ class Asset
     public function getName()
     {
         return $this->name;
+    }
+
+    
+
+    /**
+     * Set scheduleItem
+     *
+     * @param \AppBundle\Entity\ScheduleItem $scheduleItem
+     * @return Asset
+     */
+    public function setScheduleItem(\AppBundle\Entity\ScheduleItem $scheduleItem = null)
+    {
+        $this->scheduleItem = $scheduleItem;
+
+        return $this;
+    }
+
+    /**
+     * Get scheduleItem
+     *
+     * @return \AppBundle\Entity\ScheduleItem 
+     */
+    public function getScheduleItem()
+    {
+        return $this->scheduleItem;
+    }
+    
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->scheduleItem = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add scheduleItem
+     *
+     * @param \AppBundle\Entity\ScheduleItem $scheduleItem
+     * @return Asset
+     */
+    public function addScheduleItem(\AppBundle\Entity\ScheduleItem $scheduleItem)
+    {
+        $this->scheduleItem[] = $scheduleItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove scheduleItem
+     *
+     * @param \AppBundle\Entity\ScheduleItem $scheduleItem
+     */
+    public function removeScheduleItem(\AppBundle\Entity\ScheduleItem $scheduleItem)
+    {
+        $this->scheduleItem->removeElement($scheduleItem);
     }
 }
