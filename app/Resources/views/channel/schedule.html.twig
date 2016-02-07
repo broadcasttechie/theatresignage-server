@@ -6,13 +6,14 @@ Channel Scheduler
 
 <div class="row"><h1>Schedule for {{ channel.name }}</h1>
 </div>
+
+
+
 <div class="row">
-<div class="panel panel-primary">
-<div class="panel-heading">Channel inheritance.</div>
-    <div class="panel-body">
-        {% if channel.inherits %}
+<div class="well well-sm">
+     {% if channel.inherits %}
         <p>
-            <a href="{{ path('channel_schedule', { 'id' : channel.inherits.id }) }}">Click here to edit the schedule for {{ channel.inherits.name }}</a>
+            This channel inherits items from <a href="{{ path('channel_schedule', { 'id' : channel.inherits.id }) }}">{{ channel.inherits.name }}.</a>
         </p>
         {% elseif channel.children %}
         <p>The following channels inherit this schedule</p>
