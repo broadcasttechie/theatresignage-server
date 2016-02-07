@@ -39,7 +39,7 @@ class Channel
     
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Channel")
+     * @ORM\ManyToOne(targetEntity="Channel", inversedBy="children")
      * @ORM\JoinColumn(name="inherits", referencedColumnName="id")
      */
     protected $inherits;
