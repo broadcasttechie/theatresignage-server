@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9052b06669b890c3329a5f001ec091e3",
-    "content-hash": "90e508e0c4a214da48627734fa736942",
+    "hash": "9458dd95ef30d6fd2b2eae665cba356a",
+    "content-hash": "f9bde5c1afdb0033861b85dd14e1e5ba",
     "packages": [
         {
             "name": "components/jquery",
@@ -766,7 +766,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/587bcaefbd50167336032ac6ed047ad326250212",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/140cc28026304d3023c880f441689986f99b913b",
                 "reference": "6ccff96434c0ac7fee077d1dce90966341dfd278",
                 "shasum": ""
             },
@@ -1793,6 +1793,45 @@
             ],
             "description": "A security checker for your composer.lock",
             "time": "2015-11-07 08:07:40"
+        },
+        {
+            "name": "snilius/twig-sort-by-field",
+            "version": "v0.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/victorhaggqvist/Twig-sort-by-field.git",
+                "reference": "6d02c6d49f93d78526e24ecf8999d322f291aa44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/victorhaggqvist/Twig-sort-by-field/zipball/6d02c6d49f93d78526e24ecf8999d322f291aa44",
+                "reference": "6d02c6d49f93d78526e24ecf8999d322f291aa44",
+                "shasum": ""
+            },
+            "require-dev": {
+                "doctrine/collections": "^1.3",
+                "php": ">=5.5.9",
+                "phpunit/phpunit": "~4.5",
+                "twig/extensions": "~1.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Snilius\\Twig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Victor Häggqvist",
+                    "email": "victor@snilius.com"
+                }
+            ],
+            "description": "A Twig Extension filter to sort an array of entries (objects or arrays) by the specified field",
+            "time": "2016-01-27 00:29:51"
         },
         {
             "name": "swiftmailer/swiftmailer",

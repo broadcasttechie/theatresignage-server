@@ -7,7 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Channel;
+use AppBundle\Entity\ScheduleItem;
 use AppBundle\Form\ChannelType;
+use AppBundle\Form\ScheduleItemType;
 
 /**
  * Channel controller.
@@ -127,22 +129,45 @@ class ChannelController extends Controller
      */
     public function scheduleAction(Request $request, Channel $channel)
     {
-        $deleteForm = $this->createDeleteForm($channel);
-        $editForm = $this->createForm('AppBundle\Form\ChannelType', $channel);
-        $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        
+        $scheduleItem = new ScheduleItem();
+        $form = $this->createForm('AppBundle\Form\ScheduleItemType', $scheduleItem);
+        $form->remove('channel');
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
             $em = $this->getDoctrine()->getManager();
-            $em->persist($channel);
+            $highest = $em->createQueryBuilder()
+                ->select('MAX(e.sequence)')
+                ->from('AppBundle:ScheduleItem', 'e')
+                ->where('e.channel = :ch')
+                ->setParameter('ch', $channel->getId())
+                ->getQuery()
+                ->getSingleScalarResult();
+            
+            
+            $scheduleItem->setSequence($highest + 1);
+            $scheduleItem->setChannel($channel);
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($scheduleItem);
             $em->flush();
 
-            return $this->redirectToRoute('channel_edit', array('id' => $channel->getId()));
+            return $this->redirectToRoute('channel_schedule', array('id' => $scheduleItem->getChannel()->getId()));
         }
-
-        return $this->render('channel/edit.html.twig', array(
+    
+                
+        
+        
+        
+        return $this->render('channel/schedule.html.twig', array(
             'channel' => $channel,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'add_form' => $form->createView(),
+            //'edit_form' => $editForm->createView(),
+            //'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
