@@ -22,13 +22,21 @@ class ScheduleItem
     private $id;
 
     /**
+     * @var int
+     * @ORM\Column(name="sequence", type="integer", options={"default" = 0})
+     */
+    private $sequence = 0;
+
+    
+    
+    /**
      *
-     * @ORM\ManyToOne(targetEntity="Channel")
+     * @ORM\ManyToOne(targetEntity="Channel", inversedBy="scheduleItem")
      */
     protected $channel;
         /**
      *
-     * @ORM\ManyToOne(targetEntity="Asset")
+     * @ORM\ManyToOne(targetEntity="Asset", inversedBy="scheduleItem")
      */
     protected $asset;
 
@@ -223,5 +231,30 @@ class ScheduleItem
     public function getAsset()
     {
         return $this->asset;
+    }
+
+
+
+    /**
+     * Set sequence
+     *
+     * @param integer $sequence
+     * @return ScheduleItem
+     */
+    public function setSequence($sequence)
+    {
+        $this->sequence = $sequence;
+
+        return $this;
+    }
+
+    /**
+     * Get sequence
+     *
+     * @return integer 
+     */
+    public function getSequence()
+    {
+        return $this->sequence;
     }
 }
