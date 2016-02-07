@@ -169,7 +169,11 @@ $response->headers->set('Content-Type', 'application/json');
         $em = $this->getDoctrine()->getManager();
 
         $channelName = $channel->getName();
-        $items = $em->getRepository('AppBundle:ScheduleItem')->findByChannel($channel);
+        $items = $em->getRepository('AppBundle:ScheduleItem')->findBy(
+            array('channel' => $channel),
+            array('sequence' => 'ASC'));
+            
+            //->findByChannel($channel);
         $playlist = array();
         
 
@@ -177,9 +181,13 @@ $response->headers->set('Content-Type', 'application/json');
         
         if ($channel->getInherits())
         {
-            $masterItems = $em->getRepository('AppBundle:ScheduleItem')->findByChannel($channel->getInherits());
-            $items = array_merge($items, $masterItems);
+            $masterItems = $em->getRepository('AppBundle:ScheduleItem')->findBy(
+            array('channel' => $channel->getInherits()),
+            array('sequence' => 'ASC'));
+            //->findByChannel($channel->getInherits());
             
+            //$items = array_merge($items, $masterItems);
+            $items = $this->array_mix($masterItems, $items);
         }
         
         
@@ -214,7 +222,30 @@ $path = $helper->asset($item->getAsset(), 'uriFile');
         
         return $data;
     }
-    
+   function array_mix($arr1, $arr2)
+{
+	if (count($arr2)>count($arr1))
+		{
+			$temp = $arr1;
+			$arr1 = $arr2;
+			$arr2 = $temp;
+			unset($temp);
+		}
+	$output = array();
+	$l1 = count($arr1);
+	$l2 = count($arr2);
+	$lt = $l1 + $l2;
+	$n = floor($l1 / $l2) ;
+	for ($i = 0; $i < $l1; $i++)
+	{
+		$output[] = $arr1[$i];
+		if ($i % $n == floor($n/2) )
+		{
+			$output[] = array_shift($arr2);
+		}
+	}
+	return $output;
+}
    
 }
 
