@@ -169,4 +169,12 @@ assetic:
         jquery:
             inputs:
                 - %kernel.root_dir%/../vendor/components/jquery/jquery.js
+                
+        datetimepicker_js:
+            inputs:
+                - %kernel.root_dir%/../vendor/components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js
+        datetimepicker_css:
+            inputs:
+                - %kernel.root_dir%/../vendor/components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css
+            filters: [cssrewrite]
         
