@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% stylesheets '@bootstrap_css' %}
+        {% stylesheets '@bootstrap_css' '@datetimepicker_css' %}
         <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
     {% endstylesheets %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -42,7 +42,7 @@
        {% block body %}{% endblock %}
     </div>
 
-  {% javascripts '@jquery' '@bootstrap_js' %}
+  {% javascripts '@jquery' '@bootstrap_js' '@datetimepicker_js'  %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     </body>
