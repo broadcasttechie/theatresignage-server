@@ -33,9 +33,32 @@ Channel Scheduler
 <div class="panel-heading">Add asset...</div>
     <div class="panel-body">
         <div class="form form-inline">
-        {{ form_start(add_form) }}
-        {{ form_widget(add_form) }}
-        <input type="submit" value="Create" />
+            {{ form_start(add_form) }}
+                {{ form_errors(add_form) }}
+            <div class="form-group">
+                {{ form_label(add_form.start, 'Start time') }}
+                {{ form_errors(add_form.start) }}
+                {{ form_widget(add_form.start) }}
+            </div>    
+            <div class="form-group">
+                {{ form_label(add_form.stop, 'End time') }}
+                {{ form_errors(add_form.stop) }}
+                {{ form_widget(add_form.stop) }}
+            </div>    
+            <div class="form-group">
+                {{ form_label(add_form.duration, 'Duration (leave blank for default)') }}
+                {{ form_errors(add_form.duration) }}
+                {{ form_widget(add_form.duration) }}
+            </div>    
+            <div class="form-group">
+                {{ form_label(add_form.asset, 'Asset to add') }}
+                {{ form_errors(add_form.asset) }}
+                {{ form_widget(add_form.asset) }}
+            </div>
+            
+            <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Add" />
+            </div>
     {{ form_end(add_form) }}
             </div>
     </div>
