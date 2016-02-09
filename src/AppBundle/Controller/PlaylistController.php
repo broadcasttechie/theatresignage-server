@@ -239,7 +239,7 @@ $path = $helper->asset($item->getAsset(), 'uriFile');
 	for ($i = 0; $i < $l1; $i++)
 	{
 		$output[] = $arr1[$i];
-		if ($i % $n == floor($n/2) )
+		if ($i % $n == floor($n/2) && count($arr2) > 0 )
 		{
 			$output[] = array_shift($arr2);
 		}
