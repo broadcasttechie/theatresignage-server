@@ -224,6 +224,10 @@ $path = $helper->asset($item->getAsset(), 'uriFile');
     }
    function array_mix($arr1, $arr2)
 {
+       if (count($arr1) == 0 || count($arr2) == 0)
+       {
+        return array_merge($arr1, $arr2);
+       }
 	if (count($arr2)>count($arr1))
 		{
 			$temp = $arr1;
