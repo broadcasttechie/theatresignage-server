@@ -166,30 +166,40 @@ $response->headers->set('Content-Type', 'application/json');
     
     private function buildPlaylist(Channel $channel)
     {
+        
+        $repository = $this->getDoctrine()->getRepository('AppBundle:ScheduleItem');
+        $query = $repository->createQueryBuilder('si')
+            ->where('si.channel = :channel')
+            ->andWhere('si.stop > :today')
+            ->setParameter('channel', $channel)
+            ->setParameter('today', new \DateTime())
+            ->orderBy('si.sequence', 'ASC')
+            ->getQuery();
+        
+        $items = $query->getResult();
+
+        
         $em = $this->getDoctrine()->getManager();
 
         $channelName = $channel->getName();
-        $items = $em->getRepository('AppBundle:ScheduleItem')->findBy(
-            array('channel' => $channel),
-            array('sequence' => 'ASC'));
-            
-            //->findByChannel($channel);
+
         $playlist = array();
         
-
-//need to think about the ordering and include items from inherited channel.
         
         if ($channel->getInherits())
         {
-            $masterItems = $em->getRepository('AppBundle:ScheduleItem')->findBy(
-            array('channel' => $channel->getInherits()),
-            array('sequence' => 'ASC'));
-            //->findByChannel($channel->getInherits());
+            $query = $repository->createQueryBuilder('si')
+                ->where('si.channel = :ch')
+                ->andWhere('si.stop > :dt')
+                ->setParameter('ch', $channel->getInherits())
+                ->setParameter('dt', new \DateTime())
+                ->orderBy('si.sequence', 'ASC')
+                ->getQuery();
+        
+            $masterItems = $query->getResult();
             
-            //$items = array_merge($items, $masterItems);
             $items = $this->array_mix($masterItems, $items);
         }
-        
         
         $i = 0;
         foreach ($items as $item)
@@ -224,6 +234,10 @@ $path = $helper->asset($item->getAsset(), 'uriFile');
     }
    function array_mix($arr1, $arr2)
 {
+       if (count($arr1) == 0 || count($arr2) == 0)
+       {
+        return array_merge($arr1, $arr2);
+       }
 	if (count($arr2)>count($arr1))
 		{
 			$temp = $arr1;
@@ -239,7 +253,7 @@ $path = $helper->asset($item->getAsset(), 'uriFile');
 	for ($i = 0; $i < $l1; $i++)
 	{
 		$output[] = $arr1[$i];
-		if ($i % $n == floor($n/2) )
+		if ($i % $n == floor($n/2) && count($arr2) > 0 )
 		{
 			$output[] = array_shift($arr2);
 		}
