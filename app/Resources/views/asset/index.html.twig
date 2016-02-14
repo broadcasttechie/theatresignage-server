@@ -58,6 +58,9 @@
 </div>
 <div class="row">
     <div class="col-sm-12 col-md-12">
+        <div class="panel panel-default">
+<div class="panel-heading">Assets</div>
+    <div class="panel-body">
     <table class="table table-hover table-border">
         <thead>
             <tr>
@@ -101,10 +104,14 @@
         {% endfor %}
         </tbody>
     </table>
+        
         <div class="navigation">
     {{ knp_pagination_render(pagination) }}
 </div>
     </div>
 </div>
+    </div>
+</div>
+
 
 {% endblock %}
