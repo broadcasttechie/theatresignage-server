@@ -25,7 +25,13 @@
             <tr>
                 <td><a href="{{ path('asset_show', { 'id': asset.id }) }}">
                     {{ asset.name }}</a></td>
-                <td><img src="{{ vich_uploader_asset(asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ asset.uri }}" /></td>
+                <td>
+                    {% if asset.mimeType == 'TYPE_IMAGE' %}
+                    <img src="{{ vich_uploader_asset(asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ asset.uri }}" />
+                    {% elseif asset.mimeType == 'TYPE_VIDEO' %}
+                        Video thumbnail not available yet
+                    {% endif %}
+                </td>
                 <td><ul>
                     {% for schedule in asset.scheduleItem %}
                     
