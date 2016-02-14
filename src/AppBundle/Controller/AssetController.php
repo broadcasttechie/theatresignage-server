@@ -26,7 +26,7 @@ class AssetController extends Controller
     {
         
         $em    = $this->get('doctrine.orm.entity_manager');
-        $dql   = "SELECT a FROM AppBundle:Asset a";
+        $dql   = "SELECT a FROM AppBundle:Asset a ORDER BY a.updatedAt DESC";
         $query = $em->createQuery($dql);
 
          $paginator  = $this->get('knp_paginator');
