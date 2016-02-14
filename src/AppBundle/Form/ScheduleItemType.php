@@ -28,7 +28,7 @@ class ScheduleItemType extends AbstractType
                           'data-provide' => 'datetimepicker',
                           'data-date-format' => 'dd-mm-yyyy hh:ii'
                       ],
-                      'data' => $date
+                      'data' => new \DateTime()
                   ]
                  )
             ->add('stop', 'datetime',
