@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -101,6 +102,22 @@ class AssetController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+    
+    
+    /**
+     * Finds and displays a Asset entity uri.
+     *
+     * @Route("/{id}/uri", name="asset_show_uri")
+     * @Method("GET")
+     */
+    public function showUriAction(Asset $asset)
+    {
+           $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+            $path = $helper->asset($asset, 'uriFile');
+        $url = $this->get('liip_imagine.cache.manager')->getBrowserPath($path, '1080_thumb') ;
+        return new Response($url);
+    }
+    
 
     /**
      * Displays a form to edit an existing Asset entity.
