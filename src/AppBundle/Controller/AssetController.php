@@ -20,7 +20,7 @@ class AssetController extends Controller
      * Lists all Asset entities.
      *
      * @Route("s", name="asset_index")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request)
     {
@@ -36,7 +36,19 @@ class AssetController extends Controller
             10/*limit per page*/
         );
         
-        return $this->render('asset/index.html.twig', array('pagination' => $pagination));
+        
+        $asset = new Asset();
+        $form = $this->createForm('AppBundle\Form\AssetType', $asset);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($asset);
+            $em->flush();
+            return $this->redirectToRoute('asset_index');
+        }
+
+        return $this->render('asset/index.html.twig', array('pagination' => $pagination, 'form' => $form->createView(),));
 
         
        // $em = $this->getDoctrine()->getManager();

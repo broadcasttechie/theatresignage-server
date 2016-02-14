@@ -2,7 +2,54 @@
 
 {% block body %}
     <h1>Asset Manager</h1>
-<p>Quick Upload box here...</p>
+
+
+
+
+
+
+
+<div class="row">
+<div class="panel panel-default">
+<div class="panel-heading">Add asset...</div>
+    <div class="panel-body">
+        <div class="form form-inline">
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+            <div class="form-group">
+                {{ form_label(form.mimeType, 'Type') }}
+                {{ form_errors(form.mimeType) }}
+                {{ form_widget(form.mimeType) }}
+            </div>    
+            <div class="form-group">
+                {{ form_label(form.ownerGroup, 'Owner Group') }}
+                {{ form_errors(form.ownerGroup) }}
+                {{ form_widget(form.ownerGroup) }}
+            </div>    
+            <div class="form-group">
+                {{ form_errors(form.uriFile) }}
+                {{ form_widget(form.uriFile) }}
+            </div>    
+            
+            <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Add" />
+            </div>
+    {{ form_end(form) }}
+            </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <a href="{{ path('asset_new') }}">Upload new asset</a>
 
 
