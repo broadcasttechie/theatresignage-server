@@ -108,6 +108,7 @@ vich_uploader:
         asset_file:
             uri_prefix:         /playerassets
             upload_destination: %kernel.root_dir%/../web/playerassets
+            namer:              vich_uploader.namer_origname
 
 
             inject_on_load:     false
@@ -120,6 +121,7 @@ vich_uploader:
 #    filters:
 #        cssrewrite: ~
         
+
 
 
 

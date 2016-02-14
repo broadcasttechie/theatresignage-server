@@ -228,7 +228,8 @@ class Asset
     public function setUri($uri)
     {
         $this->uri = $uri;
-        $this->name = pathinfo($uri, PATHINFO_FILENAME);
+        #$this->name = pathinfo($uri, PATHINFO_FILENAME);
+        $this->name =  pathinfo(substr($uri, strpos($uri, '_')+1), PATHINFO_FILENAME);
         return $this;
     }
 
