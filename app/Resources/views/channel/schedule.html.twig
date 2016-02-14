@@ -64,6 +64,7 @@ Channel Scheduler
     </div>
 </div>
 </div>
+
 <div class="row">
     <div class="col col-md-12">
 <table class="table table-hover table-condensed">
@@ -87,7 +88,13 @@ Channel Scheduler
             <td>{{ row.start | date("d/m/Y") }}<br />{{ row.start | date("H:i") }}</td>
             <td>{{ row.stop | date("d/m/Y") }}<br />{{ row.stop | date("H:i") }}</td>
             <td>{{ row.duration | default(channel.duration)}}</td>
-            <td><img src="{{ vich_uploader_asset(row.asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ row.asset.uri }}" /></td>
+            <td>
+                {% if row.asset.mimeType == 'TYPE_IMAGE' %}
+                    <img src="{{ vich_uploader_asset(row.asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ row.asset.uri }}" />
+                    {% elseif row.asset.mimeType == 'TYPE_VIDEO' %}
+                        Video thumbnail not available yet
+                {% endif %}
+            </td>
             <td>
                 <a href="{{ path('scheduleitem_delete_direct', { 'id' : row.id }) }}" class="btn btn-danger" role="button">Remove</a>
                 <a href="{{ path('scheduleitem_edit', { 'id' : row.id }) }}" class="btn btn-default" role="button">Edit</a>
