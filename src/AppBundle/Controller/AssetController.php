@@ -105,12 +105,12 @@ class AssetController extends Controller
     
     
     /**
-     * Finds and displays a Asset entity uri.
+     * Finds and displays a Asset entity thumb.
      *
-     * @Route("/{id}/uri", name="asset_show_uri")
+     * @Route("/{id}/thumb", name="asset_get_thumb")
      * @Method("GET")
      */
-    public function showUriAction(Asset $asset)
+    public function getThubmbAction(Asset $asset)
     {
            $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
             $path = $helper->asset($asset, 'uriFile');
