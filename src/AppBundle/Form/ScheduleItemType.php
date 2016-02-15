@@ -6,8 +6,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
 
 class ScheduleItemType extends AbstractType
 {
@@ -49,9 +51,13 @@ class ScheduleItemType extends AbstractType
                       'required'    => false,
                       'empty_data'  => '',
             ])
-            ->add('channel')
-            ->add('asset')
-        ;
+            ->add('channel');
+        $builder->add('asset', EntityType::class, array(
+            'class' => 'AppBundle:Asset',
+            'query_builder' => function (EntityRepository $er) {
+            return $er->createQueryBuilder('a')->orderBy('a.updatedAt', 'DESC');},
+            'placeholder' => '-- Select Asset --',
+        ));
     }
     
     /**
