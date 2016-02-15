@@ -186,4 +186,12 @@ assetic:
             inputs:
                 - %kernel.root_dir%/../vendor/components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css
             filters: [cssrewrite]
+                            
+        lightbox_js:
+            inputs:
+                - %kernel.root_dir%/../vendor/drmonty/ekko-lightbox/js/ekko-lightbox.js 
+        lightbox_css:
+            inputs:
+                - %kernel.root_dir%/../vendor/drmonty/ekko-lightbox/css/ekko-lightbox.css 
+            filters: [cssrewrite]
         

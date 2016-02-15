@@ -22,7 +22,9 @@
                 <th>Image</th>
                 <td>
                     {% if asset.mimeType == 'TYPE_IMAGE' %}
-                    <img src="{{ vich_uploader_asset(asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ asset.uri }}" />
+                    <a href="{{  vich_uploader_asset(asset, 'uriFile') | imagine_filter('1080')   }}">
+                        <img src="{{ vich_uploader_asset(asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ asset.uri }}" />
+                    </a>
                     {% elseif asset.mimeType == 'TYPE_VIDEO' %}
                     <video width="320" height="240" controls>
                         <source src="{{ vich_uploader_asset(asset, 'uriFile') }}" type="video/mp4">
