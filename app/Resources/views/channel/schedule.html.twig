@@ -90,7 +90,10 @@ Channel Scheduler
             <td>{{ row.duration | default(channel.duration)}}</td>
             <td>
                 {% if row.asset.mimeType == 'TYPE_IMAGE' %}
-                    <img src="{{ vich_uploader_asset(row.asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ row.asset.uri }}" />
+                <a href="{{ vich_uploader_asset(row.asset, 'uriFile') | imagine_filter('1080_medium')  }}" data-toggle="lightbox" data-title="{{ row.asset.name }}" data-footer="{{ row.asset.uri }}">
+                    <img src="{{ vich_uploader_asset(row.asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ row.asset.uri }}" class="img-responsive" />
+                </a>
+                
                     {% elseif row.asset.mimeType == 'TYPE_VIDEO' %}
                         Video thumbnail not available yet
                 {% endif %}

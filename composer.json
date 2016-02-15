@@ -46,7 +46,8 @@
         "liip/imagine-bundle": "^1.4",
         "knplabs/knp-paginator-bundle": "^2.5",
         "snilius/twig-sort-by-field": "^0.1.5",
-        "components/bootstrap-datetimepicker": "^2.3"
+        "components/bootstrap-datetimepicker": "^2.3",
+        "drmonty/ekko-lightbox": "^4.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
