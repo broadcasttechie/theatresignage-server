@@ -1,4 +1,7 @@
 {% extends 'base.html.twig' %}
+{% block title %}
+Asset Manager
+{% endblock %}
 
 {% block body %}
 <div class="page-header">
@@ -66,7 +69,11 @@
                     {{ asset.name }}</a></td>
                 <td>
                     {% if asset.mimeType == 'TYPE_IMAGE' %}
-                    <img src="{{ vich_uploader_asset(asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ asset.uri }}" />
+                    
+                    <a href="{{ vich_uploader_asset(asset, 'uriFile') | imagine_filter('1080_medium')  }}" data-toggle="lightbox" data-title="{{ asset.name }}" data-footer="{{ asset.uri }}">
+                        <img src="{{ vich_uploader_asset(asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ asset.uri }}" />
+                    </a>
+                    
                     {% elseif asset.mimeType == 'TYPE_VIDEO' %}
                         Video thumbnail not available yet
                     {% endif %}
@@ -74,18 +81,19 @@
                 <td><ul>
                     {% for schedule in asset.scheduleItem %}
                     
-                        <li>{{ schedule.channel.name }}</li>
+                        <li><a href="{{ path('channel_schedule', {'id':schedule.channel.id}) }}">{{ schedule.channel.name }}</a></li>
                 {% endfor %}
                     
                     </ul>
+                    Add to schedule dropdown.
                 </td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('asset_show', { 'id': asset.id }) }}">show</a>
+                            <a href="{{ path('asset_edit', { 'id': asset.id }) }}">edit</a>
                         </li>
                         <li>
-                            <a href="{{ path('asset_edit', { 'id': asset.id }) }}">edit</a>
+                            <a href="#">add to schedule</a>
                         </li>
                     </ul>
                 </td>
