@@ -10,6 +10,8 @@ Channel Scheduler
 
 
 <div class="row">
+    
+        <div class="col col-md-3">
 <div class="well well-sm">
      {% if channel.inherits %}
         <p>
@@ -26,13 +28,13 @@ Channel Scheduler
             </ul>
         {% endif %}
     </div>
-</div>
-
-<div class="row">
+    </div>
+    
+        <div class="col col-md-9">
 <div class="panel panel-default">
 <div class="panel-heading">Add asset...</div>
     <div class="panel-body">
-        <div class="col col-sm-10">
+        <div class="col col-md-9">
         <div class="form form-inline">
             {{ form_start(add_form) }}
                 {{ form_errors(add_form) }}
@@ -63,10 +65,11 @@ Channel Scheduler
     {{ form_end(add_form) }}
             </div>
             </div>
-        <div class="col col-sm-2">
+        <div class="col col-md-3">
             <span id="previewimage"></span>
         </div>
     </div>
+</div>
 </div>
 </div>
 
@@ -96,7 +99,7 @@ Channel Scheduler
             <td>
                 {% if row.asset.mimeType == 'TYPE_IMAGE' %}
                 <a href="{{ vich_uploader_asset(row.asset, 'uriFile') | imagine_filter('1080_medium')  }}" data-toggle="lightbox" data-title="{{ row.asset.name }}" data-footer="{{ row.asset.uri }}">
-                    <img src="{{ vich_uploader_asset(row.asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ row.asset.uri }}" class="img-responsive" />
+                    <img src="{{ vich_uploader_asset(row.asset, 'uriFile') | imagine_filter('1080_thumb')  }}" alt="{{ row.asset.uri }}" class="img-responsive img-thumbnail" />
                 </a>
                 
                     {% elseif row.asset.mimeType == 'TYPE_VIDEO' %}
