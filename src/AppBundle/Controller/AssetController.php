@@ -118,6 +118,23 @@ class AssetController extends Controller
         return new Response($url);
     }
     
+    /**
+     * Finds and displays a Asset entity thumb image.
+     *
+     * @Route("/{id}/thumbimage", name="asset_get_thumb_image")
+     * @Method("GET")
+     */
+    public function getThubmbImageAction(Asset $asset)
+    {
+        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+        $path = $helper->asset($asset, 'uriFile');
+        $url = $this->get('liip_imagine.cache.manager')->getBrowserPath($path, '1080_thumb') ;
+        $image = file_get_contents( realpath($this->get('kernel')->getRootDir()  . '/../web') . parse_url($url)['path']);
+        
+        return new Response($image, 200, array('Content-Type' => 'image/jpg'));
+    }
+    
+    
 
     /**
      * Displays a form to edit an existing Asset entity.

@@ -184,8 +184,9 @@ class ScheduleItemController extends Controller
      */
     public function editAction(Request $request, ScheduleItem $scheduleItem)
     {
-        $deleteForm = $this->createDeleteForm($scheduleItem);
+        //$deleteForm = $this->createDeleteForm($scheduleItem);
         $editForm = $this->createForm('AppBundle\Form\ScheduleItemType', $scheduleItem);
+        $editForm->remove('channel');
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -193,13 +194,13 @@ class ScheduleItemController extends Controller
             $em->persist($scheduleItem);
             $em->flush();
 
-            return $this->redirectToRoute('scheduleitem_edit', array('id' => $scheduleItem->getId()));
+            return $this->redirectToRoute('channel_schedule', array('id' => $scheduleItem->getChannel()->getId()));
         }
 
         return $this->render('scheduleitem/edit.html.twig', array(
             'scheduleItem' => $scheduleItem,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            //'delete_form' => $deleteForm->createView(),
         ));
     }
 
