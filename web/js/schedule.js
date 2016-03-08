@@ -28,7 +28,7 @@ $( "#schedule_item_asset" ).change(function() {
     $.get( "/asset/" + this.value + "/thumb", function( data ) {
         //alert( "Data Loaded: " + data );
         
-        $( "#previewimage" ).html("<img src='" + data + "' />")
+        $( "#previewimage" ).html("<img class='img-responsive img-thumbnail' src='" + data + "' />")
     });
     
 });
