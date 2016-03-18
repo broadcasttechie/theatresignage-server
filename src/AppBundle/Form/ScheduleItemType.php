@@ -30,7 +30,7 @@ class ScheduleItemType extends AbstractType
                           'data-provide' => 'datetimepicker',
                           'data-date-format' => 'dd-mm-yyyy hh:ii'
                       ],
-                      'data' => new \DateTime()
+                      //'data' => new \DateTime()
                   ]
                  )
             ->add('stop', 'datetime',
@@ -42,7 +42,7 @@ class ScheduleItemType extends AbstractType
                           'data-provide' => 'datetimepicker',
                           'data-date-format' => 'dd-mm-yyyy hh:ii'
                       ],
-                      'data' => $date->add(new \DateInterval('P1M'))
+                      //'data' => $date->add(new \DateInterval('P1M'))
                   ]
                  )
             ->add('duration', NumberType::class,
