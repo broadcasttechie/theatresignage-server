@@ -160,6 +160,18 @@ $response->headers->set('Content-Type', 'application/json');
     }
     
     
+            
+    /**
+     * Playlist player.
+     *
+     * @Route("/{id}/player", name="playlist_player")
+     * @Method("GET")
+     */
+    public function playerAction(Channel $channel)
+    {
+        return $this->render('channel/player.html.twig');
+    }
+    
     
     
     
