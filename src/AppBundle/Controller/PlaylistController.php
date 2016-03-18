@@ -229,7 +229,7 @@ $path = $helper->asset($item->getAsset(), 'uriFile');
             $playlist[$i]['url'] = $url;
             $playlist[$i]['start'] = $item->getStart()->format('c');
             $playlist[$i]['stop'] = $item->getStop()->format('c');
-            $playlist[$i]['duration'] = ($item->getDuration() ? $item->getDuration() : $channel->getDuration());
+            $playlist[$i]['duration'] = ($item->getDuration() ? $item->getDuration() : ($channel->getDuration() ? $channel->getDuration() : $channel->getInherits()->getDuration() ));
             //$playlist[$i]['hash'] = md5_file("$webPath$path");
             $i++;
         }
