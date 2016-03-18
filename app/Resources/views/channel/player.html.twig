@@ -41,7 +41,10 @@
                                 pl = pldata.data.playlist;
                             }
                     }
-                setTimeout("show()", (pl[i].duration * 1000))
+                var dur = pl[i].duration * 1000;
+                if (dur < 1000)
+                    dur = 1000;
+                setTimeout("show()", dur)
                 }
                 
             
