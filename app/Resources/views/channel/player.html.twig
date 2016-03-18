@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <script>
+            window.setimg = function (uri) {
+                console.log("Loading image: " + uri);
+                var i = new Image();
+                i.onload = function() {
+                    document.body.style.backgroundSize = i.width > window.innerWidth || i.height > window.innerHeight ? 'contain' : 'auto';
+                    document.body.style.backgroundImage = 'url(' + uri + ')';
+                }
+                i.src = uri;
+            }
+      
+          //  window.demo = function () {
+                //window.setimg('./media/twelfth2-1080.jpg');
+                //window.setTimeout(window.setimg('./media/greatex2-1080.jpg'),10000);
+           // }
+        
+            function Get(yourUrl){
+                var Httpreq = new XMLHttpRequest(); // a new request
+                Httpreq.open("GET",yourUrl,false);
+                Httpreq.send(null);
+                return Httpreq.responseText;          
+               
+    }
+            var pl;
+            var pldata;
+            var i=0;
+            
+            function show() {
+                //console.log("show " + i)
+                //console.log(pl[i])
+                window.setimg(pl[i].url);
+                i++
+                if (i >= pl.length)
+                    {
+                        i=0;
+                        if (checkhash() == true)
+                            {
+                                pldata = getplaylist();
+                                pl = pldata.data.playlist;
+                            }
+                    }
+                setTimeout("show()", (pl[i].duration * 1000))
+                }
+                
+            
+            window.runplayer = function() {
+               pldata = getplaylist();
+                pl = pldata.data.playlist;
+                console.info(pldata);
+                show();
+            }
+            
+            
+            
+            function getplaylist() {
+                 var pl = JSON.parse(Get("/playlist/{{ app.request.attributes.get('_route_params')['id'] }}"));
+                console.log(pl);
+                return pl;
+            }
+            
+            
+     function checkhash() {
+         var output = false;
+         console.log("Checking hash");
+         var hash = Get("/playlist/{{ app.request.attributes.get('_route_params')['id'] }}/hash");
+         if (hash != pldata.hash)
+             output = true;
+         return output;
+     }
+            
+            
+            
+        </script>
+    </head>
+    <body style="background: #000 center no-repeat" onLoad="window.runplayer()" ></body>
+</html>
