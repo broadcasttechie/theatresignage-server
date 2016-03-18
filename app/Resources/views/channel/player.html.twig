@@ -31,7 +31,13 @@
                 //console.log("show " + i)
                 //console.log(pl[i])
                 window.setimg(pl[i].url);
-                i++
+                var dur = pl[i].duration * 1000;
+                if (dur < 1000)
+                    {
+                        dur = 1000;
+                    }
+                    
+                i++;
                 if (i >= pl.length)
                     {
                         i=0;
@@ -41,9 +47,6 @@
                                 pl = pldata.data.playlist;
                             }
                     }
-                var dur = pl[i].duration * 1000;
-                if (dur < 1000)
-                    dur = 1000;
                 setTimeout("show()", dur)
                 }
                 
