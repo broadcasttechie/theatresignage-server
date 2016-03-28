@@ -182,7 +182,7 @@ $response->headers->set('Content-Type', 'application/json');
         $repository = $this->getDoctrine()->getRepository('AppBundle:ScheduleItem');
         $query = $repository->createQueryBuilder('si')
             ->where('si.channel = :channel')
-            ->andWhere('si.stop > :today')
+            //->andWhere('si.stop > :today')
             ->andWhere('si.start < :today')
             ->setParameter('channel', $channel)
             ->setParameter('today', new \DateTime())
@@ -203,7 +203,7 @@ $response->headers->set('Content-Type', 'application/json');
         {
             $query = $repository->createQueryBuilder('si')
                 ->where('si.channel = :ch')
-                ->andWhere('si.stop > :dt')
+                //->andWhere('si.stop > :dt')
                 ->andWhere('si.start < :dt')
                 ->setParameter('ch', $channel->getInherits())
                 ->setParameter('dt', new \DateTime())
