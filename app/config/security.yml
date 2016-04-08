@@ -39,6 +39,8 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/group, role: ROLE_ADMIN }
         - { path: ^/channel, role: ROLE_USER }
+        - { path: ^/scheduleitem, role: ROLE_USER }
         - { path: ^/asset, role: ROLE_USER }
         #- { path: ^/media/, role: ROLE_USER }
