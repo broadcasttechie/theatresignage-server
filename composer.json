@@ -47,7 +47,8 @@
         "knplabs/knp-paginator-bundle": "^2.5",
         "snilius/twig-sort-by-field": "^0.1.5",
         "components/bootstrap-datetimepicker": "^2.3",
-        "drmonty/ekko-lightbox": "^4.0"
+        "drmonty/ekko-lightbox": "^4.0",
+        "stof/doctrine-extensions-bundle": "1.2.*@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
