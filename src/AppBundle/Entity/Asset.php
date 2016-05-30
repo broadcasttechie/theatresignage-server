@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\Criteria;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Asset
@@ -65,6 +66,23 @@ class Asset
      * @var string
      */
     private $uri;
+    
+    
+    
+    /**
+     * @Gedmo\Slug(fields={"name","updatedAt"})
+     * @ORM\Column(length=128, unique=true,nullable=true)
+     */
+    private $slug;
+
+    public function getSlug() {
+        return $this->slug;
+    }
+
+    public function setSlug($slug){
+        $this->slug = $slug;
+        return $this;
+    }
     
     
     
