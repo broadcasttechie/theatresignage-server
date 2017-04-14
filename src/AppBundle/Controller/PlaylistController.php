@@ -259,34 +259,36 @@ $response->headers->set('Content-Type', 'application/json');
         
         return $data;
     }
-   function array_mix($arr1, $arr2)
-{
-       if (count($arr1) == 0 || count($arr2) == 0)
-       {
-        return array_merge($arr1, $arr2);
-       }
-	if (count($arr2)>count($arr1))
-		{
-			$temp = $arr1;
-			$arr1 = $arr2;
-			$arr2 = $temp;
-			unset($temp);
-		}
-	$output = array();
-	$l1 = count($arr1);
-	$l2 = count($arr2);
-	$lt = $l1 + $l2;
-	$n = floor($l1 / $l2) ;
-	for ($i = 0; $i < $l1; $i++)
-	{
-		$output[] = $arr1[$i];
-		if ($i % $n == floor($n/2) && count($arr2) > 0 )
-		{
-			$output[] = array_shift($arr2);
-		}
-	}
-	return $output;
-}
-   
+    
+    
+    function array_mix($arr1, $arr2)
+    {
+        if (count($arr1) == 0 || count($arr2) == 0)
+        {
+            return array_merge($arr1, $arr2);
+        }
+        if (count($arr2)>count($arr1))
+        {
+            $temp = $arr1;
+            $arr1 = $arr2;
+            $arr2 = $temp;
+            unset($temp);
+        }
+        $output = array();
+        $l1 = count($arr1);
+        $l2 = count($arr2);
+        $lt = $l1 + $l2;
+        $n = floor($l1 / $l2) ;
+        for ($i = 0; $i < $l1; $i++)
+        {
+            $output[] = $arr1[$i];
+            if ($i % $n == floor($n/2) && count($arr2) > 0 )
+            {
+                $output[] = array_shift($arr2);
+            }
+        }
+        return $output;
+    }
+
 }
 
