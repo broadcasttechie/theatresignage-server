@@ -218,11 +218,23 @@ $response->headers->set('Content-Type', 'application/json');
         $i = 0;
         foreach ($items as $item)
         {
+            // vich_uploader helper - get uploaded asset object
             $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
-$path = $helper->asset($item->getAsset(), 'uriFile');
-        
-        $url = $this->get('liip_imagine.cache.manager')->getBrowserPath($path, '1080') ;
-            $webPath = $this->get('kernel')->getRootDir() . '/../web' . $this->getRequest()->getBasePath();
+            $path = $helper->asset($item->getAsset(), 'uriFile');
+            //$webPath = $this->get('kernel')->getRootDir() . '/../web' . $this->getRequest()->getBasePath();
+            
+            if (preg_match('/IMAGE/',$item->getAsset()->getMimeType()))
+            {
+                $url = $this->get('liip_imagine.cache.manager')->getBrowserPath($path, '1080') ;
+            }
+            elseif (preg_match('/VIDEO/',$item->getAsset()->getMimeType()))
+            {
+                $url = $this->get('request')->getSchemeAndHttpHost() . $path ;
+            }
+            else
+            {
+                $url = $path;
+            }
             
             $playlist[$i]['uri'] = $item->getAsset()->getUri();
             $playlist[$i]['type'] = $item->getAsset()->getMimeType();
@@ -230,6 +242,7 @@ $path = $helper->asset($item->getAsset(), 'uriFile');
             $playlist[$i]['start'] = $item->getStart()->format('c');
             $playlist[$i]['stop'] = $item->getStop()->format('c');
             $playlist[$i]['duration'] = ($item->getDuration() ? $item->getDuration() : ($channel->getDuration() ? $channel->getDuration() : $channel->getInherits()->getDuration() ));
+            //TODO return hash of item to allow re-download if error:
             //$playlist[$i]['hash'] = md5_file("$webPath$path");
             $i++;
         }
