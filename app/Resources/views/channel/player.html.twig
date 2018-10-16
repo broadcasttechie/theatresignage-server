@@ -10,11 +10,7 @@
                 }
                 i.src = uri;
             }
-      
-          //  window.demo = function () {
-                //window.setimg('./media/twelfth2-1080.jpg');
-                //window.setTimeout(window.setimg('./media/greatex2-1080.jpg'),10000);
-           // }
+    
         
             function Get(yourUrl){
                 var Httpreq = new XMLHttpRequest(); // a new request
@@ -43,6 +39,11 @@
                             {
                                 pldata = getplaylist();
                                 pl = pldata.data.playlist;
+                                pl = pl.filter(obj => {
+                                    return new Date(obj.start) <= Date.now()
+                                    }).filter(obj => {
+                                        return new Date(obj.stop) >= Date.now()
+                                        })
                             }
                     }
                 setTimeout("show()", dur)
