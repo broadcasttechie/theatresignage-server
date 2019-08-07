@@ -93,16 +93,16 @@ liip_imagine:
         1080_thumb:
             quality: 75
             filters:
-                thumbnail: { size: [160,90], mode: outbound }
+                thumbnail: { size: [160,90], mode: inset }
         1080_medium:
             quality: 90
             filters:
-                thumbnail: { size: [960,540], mode: outbound }
+                thumbnail: { size: [960,540], mode: inset }
         1080:
             quality: 100
             filters:
                 background: { size: [1920,1080], color: '#000' }
-                thumbnail: { size: [1920,1080], mode: outbound }
+                thumbnail: { size: [1920,1080], mode: inset }
                 
                 
 
