@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "072323f2aedaba72928146fb72e8a12e",
+    "content-hash": "8e8a98ac6de6761abfde9cbce4fe8f3e",
     "packages": [
         {
             "name": "components/bootstrap",
@@ -3451,7 +3451,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^5.3"
+        "php": ">=5.3.9"
     },
     "platform-dev": [],
     "platform-overrides": {
