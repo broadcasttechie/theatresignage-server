@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/kristanwebb/ts
+    - /bin/cp -R app $DEPLOYPATH
