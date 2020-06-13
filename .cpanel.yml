@@ -2,6 +2,8 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/kristanwebb/ts/
+    - echo $DEPLOYPATH
+    - echo --------
     - /bin/cp -R app $DEPLOYPATH
     - /bin/cp -R bin $DEPLOYPATH
     - /bin/cp -R components $DEPLOYPATH
@@ -9,4 +11,3 @@ deployment:
     - /bin/cp -R vendor $DEPLOYPATH
     - /bin/cp -R web $DEPLOYPATH
     - /bin/cp composer.* $DEPLOYPATH
-    
