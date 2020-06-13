@@ -5,9 +5,7 @@ deployment:
     - /bin/echo $DEPLOYPATH
     - /bin/echo --------
     - /bin/cp -R app $DEPLOYPATH
-    - /bin/cp -R bin $DEPLOYPATH
-    - /bin/cp -R components $DEPLOYPATH
     - /bin/cp -R media $DEPLOYPATH
-    - /bin/cp -R vendor $DEPLOYPATH
+    - /bin/cp -R src $DEPLOYPATH
     - /bin/cp -R web $DEPLOYPATH
     - /bin/cp composer.* $DEPLOYPATH
