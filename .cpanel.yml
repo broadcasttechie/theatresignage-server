@@ -9,3 +9,4 @@ deployment:
     - /bin/cp -R vendor $DEPLOYPATH
     - /bin/cp -R web $DEPLOYPATH
     - /bin/cp composer.* $DEPLOYPATH
+    
