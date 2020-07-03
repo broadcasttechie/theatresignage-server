@@ -93,15 +93,18 @@ liip_imagine:
         1080_thumb:
             quality: 75
             filters:
+                background: { color: '#000', position: center }
                 thumbnail: { size: [160,90], mode: inset }
         1080_medium:
             quality: 90
             filters:
+                background: { color: '#000', position: center }
                 thumbnail: { size: [960,540], mode: inset }
         1080:
             quality: 100
             filters:
-                background: { size: [1920,1080], color: '#000' }
+                #background: { size: [1920,1080], color: '#000' }
+                background: { color: '#000', position: center}
                 thumbnail: { size: [1920,1080], mode: inset }
                 
                 
