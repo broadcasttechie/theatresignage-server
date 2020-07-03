@@ -102,6 +102,7 @@ liip_imagine:
             quality: 100
             filters:
                 #background: { size: [1920,1080], color: '#000' }
+                background: { color: '#000'}
                 thumbnail: { size: [1920,1080], mode: inset }
                 
                 
